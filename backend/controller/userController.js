@@ -10,20 +10,29 @@ const userModel = require("../models/userModel");
 const registerUser = asyncHandler(async (req,res) => {
     const {name,email,password,passwordConfirmation} = req.body;
     if(!name || !email || !password || !passwordConfirmation ){
-        res.status(400);
-        throw new Error("Please fill all the field");
+        res.status(400).json({
+            statusCode: 400,
+            message: "Please fill all the field"
+        });
+        // throw new Error("Please fill all the field");
     }
     if(password !== passwordConfirmation){
-        res.status(400);
-        throw new Error("Password and Password Confirmation field didn't match")
+        res.status(400).json({
+            statusCode: 400,
+            message: "Password and Password Confirmation field do not match"
+        });
+        // throw new Error("Password and Password Confirmation field didn't match")
     }
 
     // check if the user exist
     const user = await userModel.findOne({email});
 
     if(user){
-        res.status(400);
-        throw new Error("The user has already exist")
+        res.status(400).json({
+            statusCode: 400,
+            message: "The user has already exist"
+        });
+        // throw new Error("The user has already exist")
     }
 
     const salt = await bcrypt.genSalt(10);
@@ -73,8 +82,11 @@ const login = asyncHandler(async (req,res) => {
             }
         })
     } else {
-        res.status(400);
-        throw new Error("Invalid Login data check the email or password you input")
+        res.status(400).json({
+            statusCode: 400,
+            message: "Invalid Login data check the email or password you input"
+        });
+        // throw new Error("Invalid Login data check the email or password you input")
     }
 
 })
