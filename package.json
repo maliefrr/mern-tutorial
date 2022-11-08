@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node backend/server.js",
-    "dev": "nodemon backend/server.js"
+    "dev": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend"
   },
   "author": "Mohamad Alief Rizky Ramadhan",
   "license": "MIT",
